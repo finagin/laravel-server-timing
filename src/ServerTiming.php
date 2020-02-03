@@ -90,6 +90,17 @@ class ServerTiming
         return $this->finishedEvents[$key] ?? null;
     }
 
+    public function determine(string $key, callable $callback)
+    {
+        $this->start($key);
+
+        $result = call_user_func($callback);
+
+        $this->stop($key);
+
+        return $result;
+    }
+
     public function events(): array
     {
         return $this->finishedEvents;
